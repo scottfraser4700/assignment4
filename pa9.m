@@ -1,3 +1,16 @@
+%% Section 1 - PA 9 
+% In this section we analyze a complex circuit using MNA techniques.
+% Starting with the equations obtained from applying Kirchoff's Current
+% Law, a G-matrix can be formed to model the conductivities present in the
+% circuit, and a C-matrix for the reactive elements in the circuit. A DC
+% analysis (w=0) is done to sweep a voltage range for the circuit to obtain
+% a DC gain value of roughly 10. An AC sweep is done to obtain the
+% frequency response of the circuit, revealing its low pass
+% filter/amplifier characteristics. Finally, a histogram is created to record the gain
+% response to a series of perturbations which have their frequency normally
+% distributed about pi with a standard deviation of 0.05. The resulting
+% histogram is not surprisingly, also gaussian in shape, centered about 8.5dB.
+
 %defining component values
 R1 = 1;
 R2 = 2;
@@ -69,13 +82,6 @@ figure(3)
 %plotting gain in dB's
 semilogx(w,10*log10(real(Vout)/Vin))
 title('Frequency Response in dB')
-
-%I need to make a histogram of the gain values
-%frequency domain
-%constant voltage
-%thing changing in the loop is w, which will be a vector of values chosen
-%randomly from a gaussian distribution with an average of pi and std of
-%0.05.
 
 w = pi+randn(1,10000)*0.05;
 Vout = zeros(1,10000);
