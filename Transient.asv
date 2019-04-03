@@ -4,14 +4,8 @@
 % section. The circuit is a low pass filter/amplifier. It comes with an expected
 % frequency response of high gain for low frequency inputs, and a rolloff
 % in gain for frequencies above its corner frequency.
-% Various input types are analyzed in the time and frequency domain. A
-% step, sine, and gaussian input are fed into the system, and plots of
-% input/output voltages are produced. In addition, the fft and fftshift
-% techniques are used to expose the frequencies present in these signals.
-% The fft plots show a two sided frequency spectrum, although the negative
-% frequencies don't really have much physical meaning in this analysis.
-
 %defining component values
+
 R1 = 1;
 R2 = 2;
 R3 = 10;
@@ -50,6 +44,7 @@ C = [C -C 0 0 0 0 0;
  Vout = zeros(1,1000);
  Vold = zeros(7,1);
  vin = 0;
+ flag=0;
  iteration=1;
  while t<Tstop
      %defining input function
@@ -64,8 +59,8 @@ C = [C -C 0 0 0 0 0;
      t = t+dt;
      iteration=iteration+1;
  end
- t = 0:dt:999*dt;
- Frequency=linspace(-100,100,1000);
+ t = 0:1:999;
+ Frequency=linspace(-10000,10000,1000);
  %plotting step response
   figure(1)
   subplot(2,1,1);
@@ -74,7 +69,7 @@ C = [C -C 0 0 0 0 0;
   plot(t,Vout)
   title('Step Response')
   subplot(2,1,2);
-  plot(Frequency,10*log10(abs(fftshift(fft(Vout)))))
+  plot(X,10*log10(abs(fftshift(fft(Vout)))))
   title('Fourier Transform of Step Response')
   
   %resetting variables
@@ -84,6 +79,7 @@ C = [C -C 0 0 0 0 0;
  vin = 0;
  t=0;
  f = 1/0.03;
+ flag=1;
  iteration=1;
  while t<Tstop
      vin = sin(2*pi*f*t);
@@ -104,8 +100,8 @@ C = [C -C 0 0 0 0 0;
   plot(t,Vout)
   title('Sinusoidal Response')
   subplot(2,1,2);
-  plot(Frequency,10*log10(abs(fftshift(fft(Vout)))))
-  title('Fourier Transform of Sinusoidal Response')
+  plot(X,10*log10(abs(fftshift(fft(Vout)))))
+  title('Fourier Transform of Step Response')
   
   
   %resetting variables
@@ -114,6 +110,7 @@ C = [C -C 0 0 0 0 0;
  Vold = zeros(7,1);
  vin = 0;
  t=0;
+ flag=2;
  iteration=1;
  delay=0.06;
  sigma=0.03;
@@ -131,14 +128,11 @@ C = [C -C 0 0 0 0 0;
  t = 0:1:999;
  %plotting gaussian response
   figure(3)
-  subplot(2,1,1);
   plot(t,Vin)
   hold on 
   plot(t,Vout)
   title('Gaussian Response')
-  subplot(2,1,2);
-  plot(Frequency,10*log10(abs(fftshift(fft(Vout)))))
-  title('Fourier Transform of Gaussian Response')
+  flag=3;
   
   
  
