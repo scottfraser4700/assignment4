@@ -67,7 +67,7 @@ C = [C -C 0 0 0 0 0;
  t = 0:dt:999*dt;
  Frequency=linspace(-100,100,1000);
  %plotting step response
-  figure(1)
+  figure(5)
   subplot(2,1,1);
   plot(t,Vin)
   hold on 
@@ -97,7 +97,7 @@ C = [C -C 0 0 0 0 0;
  end
  t = 0:1:999;
  %plotting sinusoidal response
-  figure(2)
+  figure(6)
   subplot(2,1,1);
   plot(t,Vin)
   hold on 
@@ -130,7 +130,7 @@ C = [C -C 0 0 0 0 0;
  end
  t = 0:1:999;
  %plotting gaussian response
-  figure(3)
+  figure(7)
   subplot(2,1,1);
   plot(t,Vin)
   hold on 
